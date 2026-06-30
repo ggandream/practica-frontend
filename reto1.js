@@ -67,13 +67,54 @@ function markupC1(data) {
   $tabpanels[0].removeAttribute("hidden");
   $tabs[0].setAttribute("tabindex", "0");
   $tabs[0].setAttribute("aria-selected", "true");
-}
 
-$tabsContainer.addEventListener("click", (e) => {
-  const $tabs = $tabsContainer.querySelectorAll(".tab");
-  const $tabpanels = $tabsContainer.querySelectorAll(".tabpanel");
+  $tabsContainer.addEventListener("click", (e) => {
+    if (e.target.matches(".tab")) {
+      removeSelected();
 
-  if (e.target.matches(".tab")) {
+      const indexOfSelected = Array.from($tabpanels).findIndex(
+        (tabpanel) =>
+          tabpanel.getAttribute("id") ===
+          e.target.getAttribute("aria-controls"),
+      );
+
+      showSelected(indexOfSelected, "click");
+    }
+  });
+
+  $tabsContainer.addEventListener("keydown", (e) => {
+    const currentTab = e.target;
+    const index = Array.from($tabs).indexOf(currentTab);
+
+    if (index === -1) return;
+
+    let newIndex = 0;
+    switch (e.key) {
+      case "ArrowLeft":
+        newIndex = (index - 1 + $tabs.length) % $tabs.length;
+        break;
+      case "ArrowRight":
+        newIndex = (index + 1) % $tabs.length;
+        break;
+      case "Home":
+        newIndex = 0;
+        break;
+      case "End":
+        newIndex = $tabs.length - 1;
+        break;
+      default:
+        return;
+    }
+
+    removeSelected();
+
+    e.preventDefault(); // Cancela la acción nativa de la tecla
+    e.stopPropagation(); //Evita que el evento suba a elementos padre
+
+    showSelected(newIndex, "key");
+  });
+
+  function removeSelected() {
     $tabpanels.forEach((tabpanel) => {
       tabpanel.setAttribute("hidden", "true");
     });
@@ -82,57 +123,15 @@ $tabsContainer.addEventListener("click", (e) => {
       tab.setAttribute("tabindex", "-1");
       tab.setAttribute("aria-selected", "false");
     });
-
-    const indexOfSelected = Array.from($tabpanels).findIndex(
-      (tabpanel) =>
-        tabpanel.getAttribute("id") === e.target.getAttribute("aria-controls"),
-    );
-
-    $tabpanels[indexOfSelected].removeAttribute("hidden");
-    $tabs[indexOfSelected].setAttribute("tabindex", "0");
-    $tabs[indexOfSelected].setAttribute("aria-selected", "true");
-  }
-});
-
-$tabsContainer.addEventListener("keydown", (e) => {
-  const $tabs = $tabsContainer.querySelectorAll(".tab");
-  const $tabpanels = $tabsContainer.querySelectorAll(".tabpanel");
-  const currentTab = e.target;
-  const index = Array.from($tabs).indexOf(currentTab);
-
-  if (index === -1) return;
-
-  let newIndex = 0;
-  switch (e.key) {
-    case "ArrowLeft":
-      newIndex = (index - 1) % $tabs.length;
-      break;
-    case "ArrowRight":
-      newIndex = (index + 1) % $tabs.length;
-      break;
-    case "Home":
-      newIndex = 0;
-      break;
-    case "End":
-      newIndex = $tabs.length - 1;
-      break;
-    default:
-      return;
   }
 
-  $tabpanels.forEach((tabpanel) => {
-    tabpanel.setAttribute("hidden", "true");
-  });
+  function showSelected(i, typeOfEvent) {
+    $tabpanels[i].removeAttribute("hidden");
+    $tabs[i].setAttribute("tabindex", "0");
+    $tabs[i].setAttribute("aria-selected", "true");
 
-  $tabs.forEach((tab) => {
-    tab.setAttribute("tabindex", "-1");
-    tab.setAttribute("aria-selected", "false");
-  });
-
-  e.preventDefault();
-  e.stopPropagation();
-  $tabs[newIndex].focus();
-  $tabpanels[newIndex].removeAttribute("hidden");
-  $tabs[newIndex].setAttribute("tabindex", "0");
-  $tabs[newIndex].setAttribute("aria-selected", "true");
-});
+    if (typeOfEvent === "key") {
+      $tabs[i].focus();
+    }
+  }
+}
