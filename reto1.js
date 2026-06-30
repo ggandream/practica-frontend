@@ -60,13 +60,20 @@ function markupC1(data) {
     </div>  
     `,
   );
+
+  const $tabs = $tabsContainer.querySelectorAll(".tab");
+  const $tabpanels = $tabsContainer.querySelectorAll(".tabpanel");
+
+  $tabpanels[0].removeAttribute("hidden");
+  $tabs[0].setAttribute("tabindex", "0");
+  $tabs[0].setAttribute("aria-selected", "true");
 }
 
 $tabsContainer.addEventListener("click", (e) => {
-  if (e.target.matches(".tab")) {
-    const $tabs = $tabsContainer.querySelectorAll(".tab");
-    const $tabpanels = $tabsContainer.querySelectorAll(".tabpanel");
+  const $tabs = $tabsContainer.querySelectorAll(".tab");
+  const $tabpanels = $tabsContainer.querySelectorAll(".tabpanel");
 
+  if (e.target.matches(".tab")) {
     $tabpanels.forEach((tabpanel) => {
       tabpanel.setAttribute("hidden", "true");
     });
@@ -87,4 +94,32 @@ $tabsContainer.addEventListener("click", (e) => {
   }
 });
 
-$tabsContainer.addEventListener("keyup");
+$tabsContainer.addEventListener("keydown", (e) => {
+  const $tabs = $tabsContainer.querySelectorAll(".tab");
+  const currentTab = e.target;
+  const index = Array.from($tabs).indexOf(currentTab);
+
+  if (index === -1) return;
+
+  let newIndex = 0;
+  switch (e.key) {
+    case "ArrowLeft":
+      newIndex = (index - 1) % $tabs.length;
+      break;
+    case "ArrowRight":
+      newIndex = (index + 1) % $tabs.length;
+      break;
+    case "Home":
+      newIndex = 0;
+      break;
+    case "End":
+      newIndex = $tabs.length - 1;
+      break;
+    default:
+      return;
+  }
+
+  e.preventDefault();
+  e.stopPropagation();
+  $tabs[newIndex].focus();
+});
