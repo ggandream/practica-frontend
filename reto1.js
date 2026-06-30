@@ -96,6 +96,7 @@ $tabsContainer.addEventListener("click", (e) => {
 
 $tabsContainer.addEventListener("keydown", (e) => {
   const $tabs = $tabsContainer.querySelectorAll(".tab");
+  const $tabpanels = $tabsContainer.querySelectorAll(".tabpanel");
   const currentTab = e.target;
   const index = Array.from($tabs).indexOf(currentTab);
 
@@ -119,7 +120,19 @@ $tabsContainer.addEventListener("keydown", (e) => {
       return;
   }
 
+  $tabpanels.forEach((tabpanel) => {
+    tabpanel.setAttribute("hidden", "true");
+  });
+
+  $tabs.forEach((tab) => {
+    tab.setAttribute("tabindex", "-1");
+    tab.setAttribute("aria-selected", "false");
+  });
+
   e.preventDefault();
   e.stopPropagation();
   $tabs[newIndex].focus();
+  $tabpanels[newIndex].removeAttribute("hidden");
+  $tabs[newIndex].setAttribute("tabindex", "0");
+  $tabs[newIndex].setAttribute("aria-selected", "true");
 });
