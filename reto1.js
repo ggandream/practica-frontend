@@ -15,7 +15,7 @@ fetch(BASE_URL + "/challenges/reto1", { credentials: "include" })
   .then((data) => {
     markupC1(data);
   })
-  .catch((error) => console.log("Error", error));
+  .catch((error) => console.error("Error", error));
 
 function markupC1(data) {
   const tabsHTML = data.tabs.map((tab) => {
@@ -64,9 +64,7 @@ function markupC1(data) {
   const $tabs = $tabsContainer.querySelectorAll(".tab");
   const $tabpanels = $tabsContainer.querySelectorAll(".tabpanel");
 
-  $tabpanels[0].removeAttribute("hidden");
-  $tabs[0].setAttribute("tabindex", "0");
-  $tabs[0].setAttribute("aria-selected", "true");
+  showSelected(0, false);
 
   $tabsContainer.addEventListener("click", (e) => {
     if (e.target.matches(".tab")) {
@@ -78,7 +76,7 @@ function markupC1(data) {
           e.target.getAttribute("aria-controls"),
       );
 
-      showSelected(indexOfSelected, "click");
+      showSelected(indexOfSelected, false);
     }
   });
 
@@ -111,7 +109,7 @@ function markupC1(data) {
     e.preventDefault(); // Cancela la acción nativa de la tecla
     e.stopPropagation(); //Evita que el evento suba a elementos padre
 
-    showSelected(newIndex, "key");
+    showSelected(newIndex, true);
   });
 
   function removeSelected() {
@@ -125,12 +123,12 @@ function markupC1(data) {
     });
   }
 
-  function showSelected(i, typeOfEvent) {
+  function showSelected(i, isFocus) {
     $tabpanels[i].removeAttribute("hidden");
     $tabs[i].setAttribute("tabindex", "0");
     $tabs[i].setAttribute("aria-selected", "true");
 
-    if (typeOfEvent === "key") {
+    if (isFocus) {
       $tabs[i].focus();
     }
   }
