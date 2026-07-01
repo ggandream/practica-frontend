@@ -12,6 +12,7 @@ export default function reto1() {
       return response.json();
     })
     .then((data) => {
+      console.log(data);
       markupC1(data);
     })
     .catch((error) => console.error("Error", error));
@@ -26,8 +27,8 @@ export default function reto1() {
             tabindex="-1"
             type="button"
             id="tab-${tab.id}"
+            data-label
           >
-            ${tab.label}
           </button>`;
     });
 
@@ -42,17 +43,17 @@ export default function reto1() {
             hidden
           >
             <section>
-              <h1>${tabpanel.heading}</h1>
-              <p>${tabpanel.content}</p>
+              <h1 data-heading></h1>
+              <p data-content></p>
             </section>
           </div>`;
     });
 
     $tabsContainer.insertAdjacentHTML(
       "beforeend",
-      `<div class="tablist" role="tablist">
+      `<div class="tablist" role="tablist" aria-label="Tabs de contenido">
     ${tabsHTML.join(" ")}
-    <div class="tab__indicator"></div>
+    <div class="tab__indicator" aria-hidden="true"></div>
     </div>
     <div class="tab-panels">
     ${tabpanelsHTML.join(" ")}
@@ -62,6 +63,15 @@ export default function reto1() {
 
     const $tabs = $tabsContainer.querySelectorAll(".tab");
     const $tabpanels = $tabsContainer.querySelectorAll(".tabpanel");
+
+    $tabpanels.forEach((tabpanel, i) => {
+      const $data_heading = tabpanel.querySelector("[data-heading]");
+      const $data_content = tabpanel.querySelector("[data-content]");
+
+      $data_heading.textContent = data.tabs[i].heading;
+      $data_content.textContent = data.tabs[i].content;
+      $tabs[i].textContent = data.tabs[i].label;
+    });
 
     showSelected(0, false);
 

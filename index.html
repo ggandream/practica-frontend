@@ -9,87 +9,123 @@
   </head>
   <body>
     <main class="main">
-      <div class="tabs">
-        <!-- <div class="tablist" role="tablist">
-          <button
-            class="tab"
-            role="tab"
-            aria-selected="false"
-            aria-controls="panel-1"
-            id="tab-1"
-            tabindex="-1"
-            type="button"
-          >
-            Resumen
-          </button>
-
-          <button
-            class="tab tab--active"
-            role="tab"
-            aria-selected="true"
-            aria-controls="panel-2"
-            id="tab-2"
-            tabindex="0"
-            type="button"
-          >
-            Configuración
-          </button>
-
-          <button
-            class="tab"
-            role="tab"
-            aria-selected="false"
-            aria-controls="panel-3"
-            id="tab-3"
-            tabindex="-1"
-            type="button"
-          >
-            Contacto
-          </button>
-
-          <div class="tab__indicator"></div>
-        </div> -->
-        <!-- <div class="tab-panels">
-          <div
-            role="tabpanel"
-            tabindex="0"
-            class="tabpanel"
-            tabindex="0"
-            aria-labelledby="tab-1"
-            id="panel-1"
-          >
-            <section>
-              <h1>Resumen</h1>
-              <p>Resumen tab content</p>
-            </section>
+      <div class="tabs"></div>
+      <div class="combobox">
+        <section class="section">
+          <select name="lenguajes" id="lenguajes-select" multiple>
+            <option value="" disabled selected>Search Values</option>
+            <option value="Javascript">Javascript</option>
+            <option value="Java">Java</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+            <option value="Python">Python</option>
+          </select>
+          <div class="custom-select">
+            <div class="custom-select__input-container">
+              <input
+                type="text"
+                class="custom-select__input"
+                placeholder="Search values"
+              />
+            </div>
+            <div class="custom-select__dropdown">
+              <ul class="custom-select__option-list">
+                <!-- <li class="custom-select__option-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-check hidden"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l5 5l10 -10" />
+                  </svg>
+                  <label for="option1" class="option__label">🍎 Apples</label>
+                </li>
+                <li class="custom-select__option-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-check hidden"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l5 5l10 -10" />
+                  </svg>
+                  <label for="option2" class="option__label">🍌 Bananas</label>
+                </li>
+                <li class="custom-select__option-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-check hidden"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l5 5l10 -10" />
+                  </svg>
+                  <label for="option3" class="option__label">🥦 Broccoli</label>
+                </li>
+                <li class="custom-select__option-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-check hidden"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l5 5l10 -10" />
+                  </svg>
+                  <label for="option4" class="option__label">🥕 Carrots</label>
+                </li>
+                <li class="custom-select__option-row">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-check hidden"
+                  >
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M5 12l5 5l10 -10" />
+                  </svg>
+                  <label for="option5" class="option__label"
+                    >🍫 Chocolate</label
+                  >
+                </li> -->
+              </ul>
+            </div>
           </div>
-          <div
-            role="tabpanel"
-            tabindex="0"
-            class="tabpanel tabpanel--active"
-            tabindex="0"
-            aria-labelledby="tab-2"
-            id="panel-2"
-          >
-            <section class="section">
-              <h1 class="">Caracteristicas</h1>
-              <p>Caracteristicas tab content</p>
-            </section>
-          </div>
-          <div
-            role="tabpanel"
-            tabindex="0"
-            class="tabpanel"
-            tabindex="0"
-            aria-labelledby="tab-3"
-            id="panel-3"
-          >
-            <section class="section">
-              <h1 class="">Contacto</h1>
-              <p>Contacto tab content</p>
-            </section>
-          </div>
-        </div> -->
+        </section>
       </div>
     </main>
   </body>
