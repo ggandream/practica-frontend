@@ -100,11 +100,17 @@ export function reto2() {
       e.target.parentElement.classList.add(
         "custom-select__input-container--active",
       );
+      e.currentTarget.parentElement.nextElementSibling.classList.remove(
+        "hidden",
+      );
       $inputSearch.parentElement.nextElementSibling.classList.remove("hidden");
     });
 
-    document.addEventListener("click", (e) => {
-      if (!e.target.matches(".custom-select__input")) {
+    document.querySelector("html").addEventListener("click", (e) => {
+      if (
+        !e.target.matches(".custom-select__input") &&
+        !e.target.matches(".custom-select__input-container")
+      ) {
         $inputSearch.parentElement.classList.remove(
           "custom-select__input-container--active",
         );
@@ -112,9 +118,9 @@ export function reto2() {
       }
     });
 
-    $inputContainer.addEventListener("click", () => {
+    $inputContainer.addEventListener("click", (e) => {
       $inputSearch.focus();
-      $inputSearch.classList.add("custom-select__input-container--active");
+      e.currentTarget.classList.add("custom-select__input-container--active");
     });
   }
 }
